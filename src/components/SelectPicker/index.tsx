@@ -36,7 +36,7 @@ const SelectPicker = () => {
 
   const { fetchProducts } = useRequestHandle();
 
-  console.log(fetchProducts());
+  console.log(fetchProducts);
 
   const filterNumbers = numbers?.filter((el) => parseInt(el) < 100 + 1);
   return (
