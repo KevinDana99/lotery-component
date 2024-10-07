@@ -16,12 +16,12 @@ const useRequestHandle = () => {
     { method, body }: { method: string; body?: Object }
   ) => {
     const API_WC_NONCE = woocommerce_api.nonce;
-    const nonce: string = Date.now().toString();
+    console.log({ API_WC_NONCE });
     const timestamp: string = Math.floor(Date.now() / 1000).toString();
 
     const params: Record<string, string> = {
       oauth_consumer_key: consumerKey,
-      oauth_nonce: nonce,
+      oauth_nonce: API_WC_NONCE,
       oauth_signature_method: "HMAC-SHA1",
       oauth_timestamp: timestamp,
       oauth_version: "1.0",
