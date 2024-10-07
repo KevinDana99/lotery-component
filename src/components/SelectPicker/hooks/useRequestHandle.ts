@@ -1,13 +1,21 @@
 import CryptoJS from "crypto-js";
 import { useEffect, useState } from "react";
 
-const consumerKey = "ck_6b5d48c8734d6f9eea959ece2e45eea40de434b7"; // Reemplaza con tu Consumer Key
-const consumerSecret = "cs_fc88b9a570c46e98c32359362b7755c9710cd6f0"; // Reemplaza con tu Consumer Secret
-const apiUrl = "http://localhost/wp-json/wc/v3/orders"; // Reemplaza con tu URL de API
+const consumerKey = "ck_6b5d48c8734d6f9eea959ece2e45eea40de434b7";
+const consumerSecret = "cs_fc88b9a570c46e98c32359362b7755c9710cd6f0";
+const getOrdersEndpoint = "http://localhost/wp-json/wc/v3/orders";
+const addedToCartEndpoint = "http://localhost/wp-json/wc/v3/cart/add";
+declare let woocommerce_api: {
+  nonce: string;
+  url: string; // Si también necesitas acceder a la URL, agrégala aquí
+};
 const useRequestHandle = () => {
   const [data, setData] = useState();
-  const fetchOrders = async () => {
-    const url: string = "http://localhost/wp-json/wc/v3/orders";
+  const handleFetch = async (
+    url: string,
+    { method, body }: { method: string; body?: Object }
+  ) => {
+    const API_WC_NONCE = woocommerce_api.nonce;
     const nonce: string = Date.now().toString();
     const timestamp: string = Math.floor(Date.now() / 1000).toString();
 
@@ -32,10 +40,12 @@ const useRequestHandle = () => {
     const response: Response = await fetch(
       `${url}?${new URLSearchParams(params)}`,
       {
-        method: "GET",
+        method,
         headers: {
           "Content-Type": "application/json",
+          "X-WP-Nonce": API_WC_NONCE,
         },
+        body: JSON.stringify(body),
       }
     );
 
@@ -72,8 +82,22 @@ const useRequestHandle = () => {
     return CryptoJS.HmacSHA1(baseString, key).toString(CryptoJS.enc.Base64);
   }
 
+  const handleAddToCartProduct = async () => {
+    await handleFetch(addedToCartEndpoint, {
+      method: "POST",
+      body: {
+        product_id: 3,
+        quantity: 10,
+      },
+    });
+  };
+
+  const handleGetProducts = async () => {
+    await handleFetch(getOrdersEndpoint, { method: "GET" });
+  };
+
   useEffect(() => {
-    fetchOrders();
+    handleAddToCartProduct();
   }, []);
 
   return {
