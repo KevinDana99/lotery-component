@@ -11,6 +11,7 @@ import {
 } from "./styled";
 import Pricing from "./Pricing";
 import { disableNumbersMock } from "./mocks/disableNumbers";
+import useRequestHandle from "./hooks/useRequestHandle";
 
 const SelectPicker = () => {
   const startNumber = 0;
@@ -32,6 +33,10 @@ const SelectPicker = () => {
     handleSelectedOption,
     pack,
   } = useSelectPicker(startNumber, endNumber, disableNumbers);
+
+  const { fetchProducts } = useRequestHandle();
+
+  console.log(fetchProducts());
 
   const filterNumbers = numbers?.filter((el) => parseInt(el) < 100 + 1);
   return (
