@@ -129,12 +129,11 @@ const SelectPicker = () => {
           </SelectButton>
           <SelectButton
             onClick={() => {
-              (pack?.price || group?.price) &&
-                handleAddToCartProduct(
-                  details?.quantity ?? 0,
-                  selectedNumbers,
-                  (pack?.price || group?.price) ?? "0"
-                );
+              handleAddToCartProduct(
+                details?.quantity ?? 0,
+                selectedNumbers,
+                pack?.price ?? "0"
+              );
             }}
           >
             Confirmar seleccion
