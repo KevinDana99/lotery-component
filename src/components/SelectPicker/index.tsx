@@ -34,7 +34,7 @@ const SelectPicker = () => {
     pack,
   } = useSelectPicker(startNumber, endNumber, disableNumbers);
 
-  const { fetchProducts } = useRequestHandle();
+  const { fetchProducts, handleAddToCartProduct } = useRequestHandle();
 
   console.log(fetchProducts);
 
@@ -123,7 +123,7 @@ const SelectPicker = () => {
           </SelectButton>
           <SelectButton
             onClick={() => {
-              handleSelectedNumbers(`${selectedRandomNumber()}`);
+              handleAddToCartProduct();
             }}
           >
             Confirmar seleccion

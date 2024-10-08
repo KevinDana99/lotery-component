@@ -6,6 +6,16 @@ const consumerSecret = "cs_fc88b9a570c46e98c32359362b7755c9710cd6f0";
 const getOrdersEndpoint = "http://localhost/wp-json/wc/v3/orders";
 const addedToCartEndpoint = "http://localhost/wp-json/wc/v3/cart/add";
 
+interface ProductData {
+  id: number;
+  name: string;
+  price: string; // o number, dependiendo de cómo estés manejando el precio
+  permalink: string;
+}
+
+// Declara la variable global
+declare const my_product_data: ProductData;
+
 const useRequestHandle = () => {
   const [data, setData] = useState();
   const handleFetch = async (
@@ -28,13 +38,15 @@ const useRequestHandle = () => {
   };
 
   const handleAddToCartProduct = async () => {
-    await handleFetch(addedToCartEndpoint, {
+    const productData = my_product_data;
+    console.log(productData);
+    /*await handleFetch(addedToCartEndpoint, {
       method: "POST",
       body: {
         product_id: 3,
         quantity: 10,
       },
-    });
+    });*/
   };
 
   const handleGetProducts = async () => {
@@ -47,6 +59,7 @@ const useRequestHandle = () => {
 
   return {
     fetchProducts: data,
+    handleAddToCartProduct,
   };
 };
 
