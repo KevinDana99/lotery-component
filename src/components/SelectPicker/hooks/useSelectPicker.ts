@@ -137,7 +137,7 @@ const useSelectPicker = (
   }, []);
 
   useEffect(() => {
-    pack ? setDetails(pack) : setDetails(group);
+    pack ? setDetails({ ...pack, quantity: 1 }) : setDetails(group);
   }, [pack, group]);
 
   useEffect(() => {
