@@ -10,14 +10,16 @@ import {
   SelectButton,
 } from "./styled";
 import Pricing from "./Pricing";
-import { disableNumbersMock } from "./mocks/disableNumbers";
+import {
+  disableNumbersMock,
+  mock_disable_number_array,
+} from "./mocks/disableNumbers";
 import useRequestHandle from "./hooks/useRequestHandle";
 
 const SelectPicker = () => {
   const startNumber = 0;
   const endNumber = 50;
   const [showMore, setShowMore] = useState(false);
-  const disableNumbers = disableNumbersMock;
 
   const { data, handleAddToCartProduct } = useRequestHandle();
 
@@ -37,12 +39,7 @@ const SelectPicker = () => {
     pack,
     details,
     group,
-  } = useSelectPicker(
-    startNumber,
-    endNumber,
-    disableNumbers,
-    data?.price ?? ""
-  );
+  } = useSelectPicker(startNumber, endNumber, data?.price ?? "");
 
   const filterNumbers = numbers?.filter((el) => parseInt(el) < 100 + 1);
   return (

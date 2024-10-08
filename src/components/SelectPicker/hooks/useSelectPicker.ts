@@ -1,11 +1,26 @@
 import { useEffect, useState } from "react";
 import { PackType } from "./types";
 import { parse } from "path";
+import { mock_disable_number_array } from "../mocks/disableNumbers";
 
+//
+/*
+not react
+
+*/
+declare var disableNumbersArray: typeof mock_disable_number_array;
+//
+/*
+let disableNumbersArray: typeof mock_disable_number_array = [
+  "0,2,4,6",
+  "2,3,5,6",
+  "3,4,7",
+];
+
+*/
 const useSelectPicker = (
   startNumber: number,
   endNumber: number,
-  disableNumbers: string[],
   pricePerItem: string
 ) => {
   const [activePrice, setActivePrice] = useState(0);
@@ -16,6 +31,22 @@ const useSelectPicker = (
   const [pack, setPack] = useState<PackType | null>(null);
   const [details, setDetails] = useState<PackType | null>(null);
   const [group, setGroup] = useState<any>(null);
+  const [disableNumbers, setDisableNumbers] = useState<string[]>([]);
+
+  const handleGetDisableNumbers = () => {
+    const parseDisableNumbers = () => {
+      let buildDisableNumbers: string[] = [];
+      disableNumbersArray.map((el) => {
+        const arr = el.split(",");
+        arr.map((el) => {
+          buildDisableNumbers.push(el);
+        });
+      });
+      return buildDisableNumbers;
+    };
+    setDisableNumbers(parseDisableNumbers);
+  };
+
   const handleCreateNumbers = () => {
     const createNumbers = new Array(endNumber + 1).fill(null);
     const numbers = createNumbers.map((_, index) => index);
@@ -134,6 +165,7 @@ const useSelectPicker = (
 
   useEffect(() => {
     handleCreateNumbers();
+    handleGetDisableNumbers();
   }, []);
 
   useEffect(() => {
