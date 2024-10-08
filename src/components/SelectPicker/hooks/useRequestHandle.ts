@@ -29,11 +29,11 @@ const useRequestHandle = () => {
   const handleAddToCartProduct = async (
     quantity: number,
     selectedNumbers: string[],
-    pack: string
+    packPrice: string | null
   ) => {
     const buildUrl = `/?add-to-cart=${data?.id}&quantity=${quantity}&selectedNumbers=${selectedNumbers}`;
-    console.log(buildUrl + (pack ? `&pack=${pack}` : ``));
-    window.location.href = buildUrl + (pack ? `&pack=${pack}` : ``);
+    console.log(buildUrl + (packPrice ? `&pack=${packPrice}` : ``));
+    window.location.href = buildUrl + (packPrice ? `&pack=${packPrice}` : ``);
   };
 
   const handleInitialData = () => {

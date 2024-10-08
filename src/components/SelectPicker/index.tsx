@@ -132,7 +132,7 @@ const SelectPicker = () => {
               handleAddToCartProduct(
                 details?.quantity ?? 0,
                 selectedNumbers,
-                pack?.price ?? "0"
+                pack?.price ?? null
               );
             }}
           >
