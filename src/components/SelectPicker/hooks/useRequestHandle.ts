@@ -33,7 +33,7 @@ const useRequestHandle = () => {
   ) => {
     const buildUrl = `/?add-to-cart=${data?.id}&quantity=${quantity}&selectedNumbers=${selectedNumbers}`;
     console.log(buildUrl + (pack ? `&pack=${pack}` : ``));
-    // window.location.href = buildUrl + (pack ? `&pack=${pack}` : ``);
+    window.location.href = buildUrl + (pack ? `&pack=${pack}` : ``);
   };
 
   const handleInitialData = () => {

@@ -36,8 +36,8 @@ const Pricing = ({
           active={pack?.quantity === 4}
           onClick={() => {
             handleSelectedPack({
-              price: "$70.000",
-              subPrice: "$100.000",
+              price: "70000",
+              subPrice: "100000",
               quantity: 4,
             });
           }}
@@ -71,8 +71,8 @@ const Pricing = ({
           active={pack?.quantity === 6}
           onClick={() => {
             handleSelectedPack({
-              price: "$100.000",
-              subPrice: "$150.000",
+              price: "100000",
+              subPrice: "150000",
               quantity: 6,
             });
           }}
