@@ -6,18 +6,15 @@ import { mock_disable_number_array } from "../mocks/disableNumbers";
 //
 /*
 not react
-
-*/
 declare var disableNumbersArray: typeof mock_disable_number_array;
-//
-/*
+*/
+
 let disableNumbersArray: typeof mock_disable_number_array = [
   "0,2,4,6",
   "2,3,5,6",
   "3,4,7",
 ];
 
-*/
 const useSelectPicker = (
   startNumber: number,
   endNumber: number,
