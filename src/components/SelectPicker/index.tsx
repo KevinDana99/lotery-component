@@ -36,6 +36,7 @@ const SelectPicker = () => {
     handleSelectedOption,
     pack,
     details,
+    group,
   } = useSelectPicker(
     startNumber,
     endNumber,
@@ -128,7 +129,11 @@ const SelectPicker = () => {
           </SelectButton>
           <SelectButton
             onClick={() => {
-              handleAddToCartProduct(details?.quantity ?? 0);
+              handleAddToCartProduct(
+                details?.quantity ?? 0,
+                selectedNumbers,
+                (pack?.price || group?.price) ?? 0
+              );
             }}
           >
             Confirmar seleccion

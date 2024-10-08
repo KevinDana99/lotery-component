@@ -1,5 +1,6 @@
 import CryptoJS from "crypto-js";
 import { useEffect, useState } from "react";
+import { PackType } from "./types";
 
 const consumerKey = "ck_6b5d48c8734d6f9eea959ece2e45eea40de434b7";
 const consumerSecret = "cs_fc88b9a570c46e98c32359362b7755c9710cd6f0";
@@ -25,8 +26,13 @@ const useRequestHandle = () => {
   const [data, setData] = useState<ProductData | null>(null);
   const productData = my_product_data;
 
-  const handleAddToCartProduct = async (quantity: number) => {
-    window.location.href = `/?add-to-cart=${data?.id}&quantity=${quantity}`;
+  const handleAddToCartProduct = async (
+    quantity: number,
+    pack: PackType,
+    selectedNumbers: string[]
+  ) => {
+    const buildUrl = `/?add-to-cart=${data?.id}&quantity=${quantity}&selectedNumbers=${selectedNumbers}`;
+    window.location.href = buildUrl + (pack ? `&pack=${pack}` : ``);
   };
 
   const handleInitialData = () => {
