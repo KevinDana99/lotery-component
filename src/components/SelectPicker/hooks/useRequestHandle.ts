@@ -18,7 +18,25 @@ declare const my_product_data: ProductData;
 
 const useRequestHandle = () => {
   const [data, setData] = useState();
-  const handleFetch = async (
+  const productData = my_product_data;
+
+  const handleAddToCartProduct = async () => {
+    console.log({ productData });
+  };
+
+  useEffect(() => {
+    handleAddToCartProduct();
+  }, []);
+
+  return {
+    fetchProducts: data,
+    handleAddToCartProduct,
+  };
+};
+
+export default useRequestHandle;
+
+/*const handleFetch = async (
     url: string,
     { method, body }: { method: string; body?: Object }
   ) => {
@@ -36,31 +54,4 @@ const useRequestHandle = () => {
     const res = await req.json();
     setData(res);
   };
-
-  const handleAddToCartProduct = async () => {
-    const productData = my_product_data;
-    console.log(productData);
-    /*await handleFetch(addedToCartEndpoint, {
-      method: "POST",
-      body: {
-        product_id: 3,
-        quantity: 10,
-      },
-    });*/
-  };
-
-  const handleGetProducts = async () => {
-    await handleFetch(getOrdersEndpoint, { method: "GET" });
-  };
-
-  useEffect(() => {
-    handleAddToCartProduct();
-  }, []);
-
-  return {
-    fetchProducts: data,
-    handleAddToCartProduct,
-  };
-};
-
-export default useRequestHandle;
+*/
