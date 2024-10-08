@@ -5,7 +5,8 @@ import { parse } from "path";
 const useSelectPicker = (
   startNumber: number,
   endNumber: number,
-  disableNumbers: string[]
+  disableNumbers: string[],
+  pricePerItem: string
 ) => {
   const [activePrice, setActivePrice] = useState(0);
   const [selectedNumbers, setSelectedNumbers] = useState<string[]>([]);
@@ -14,7 +15,6 @@ const useSelectPicker = (
   let selected: string[] = [];
   const [pack, setPack] = useState<PackType | null>(null);
   const [details, setDetails] = useState<PackType | null>(null);
-  const pricePerItem = 30000;
   const [group, setGroup] = useState<PackType | null>(null);
   const handleCreateNumbers = () => {
     const createNumbers = new Array(endNumber + 1).fill(null);
@@ -123,10 +123,11 @@ const useSelectPicker = (
   };
 
   useEffect(() => {
+    const dividedSelectNumbers = Math.floor(selectedNumbers.length / 2);
     !pack &&
       setGroup({
-        price: `${(pricePerItem / 2) * selectedNumbers.length}`,
-        quantity: selectedNumbers.length,
+        price: `${parseInt(pricePerItem) * dividedSelectNumbers}`,
+        quantity: dividedSelectNumbers,
         subPrice: "",
       });
   }, [selectedNumbers]);
@@ -138,6 +139,10 @@ const useSelectPicker = (
   useEffect(() => {
     pack ? setDetails(pack) : setDetails(group);
   }, [pack, group]);
+
+  useEffect(() => {
+    console.log(details);
+  }, [details]);
 
   return {
     selectedNumbers,

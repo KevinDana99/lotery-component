@@ -9,27 +9,36 @@ const addedToCartEndpoint = "http://localhost/wp-json/wc/v3/cart/add";
 interface ProductData {
   id: number;
   name: string;
-  price: string; // o number, dependiendo de cómo estés manejando el precio
+  price: string;
   permalink: string;
 }
+declare let my_product_data: ProductData;
+/*
 
-// Declara la variable global
-declare const my_product_data: ProductData;
-
+let my_product_data: ProductData = {
+  id: 4,
+  name: "",
+  permalink: "",
+  price: "",
+};*/
 const useRequestHandle = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState<ProductData | null>(null);
   const productData = my_product_data;
 
-  const handleAddToCartProduct = async () => {
-    console.log({ productData });
+  const handleAddToCartProduct = async (quantity: number) => {
+    window.location.href = `/?add-to-cart=${data?.id}&quantity=${quantity}`;
+  };
+
+  const handleInitialData = () => {
+    setData(productData);
   };
 
   useEffect(() => {
-    handleAddToCartProduct();
+    handleInitialData();
   }, []);
 
   return {
-    fetchProducts: data,
+    data,
     handleAddToCartProduct,
   };
 };

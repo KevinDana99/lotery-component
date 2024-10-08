@@ -18,6 +18,9 @@ const SelectPicker = () => {
   const endNumber = 50;
   const [showMore, setShowMore] = useState(false);
   const disableNumbers = disableNumbersMock;
+
+  const { data, handleAddToCartProduct } = useRequestHandle();
+
   const {
     numbers,
     handleSelectedNumbers,
@@ -32,11 +35,13 @@ const SelectPicker = () => {
     handleRemoveSelectedNumber,
     handleSelectedOption,
     pack,
-  } = useSelectPicker(startNumber, endNumber, disableNumbers);
-
-  const { fetchProducts, handleAddToCartProduct } = useRequestHandle();
-
-  console.log(fetchProducts);
+    details,
+  } = useSelectPicker(
+    startNumber,
+    endNumber,
+    disableNumbers,
+    data?.price ?? ""
+  );
 
   const filterNumbers = numbers?.filter((el) => parseInt(el) < 100 + 1);
   return (
@@ -123,7 +128,7 @@ const SelectPicker = () => {
           </SelectButton>
           <SelectButton
             onClick={() => {
-              handleAddToCartProduct();
+              handleAddToCartProduct(details?.quantity ?? 0);
             }}
           >
             Confirmar seleccion
