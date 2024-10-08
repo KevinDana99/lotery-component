@@ -15,7 +15,7 @@ const useSelectPicker = (
   let selected: string[] = [];
   const [pack, setPack] = useState<PackType | null>(null);
   const [details, setDetails] = useState<PackType | null>(null);
-  const [group, setGroup] = useState<PackType | null>(null);
+  const [group, setGroup] = useState<any>(null);
   const handleCreateNumbers = () => {
     const createNumbers = new Array(endNumber + 1).fill(null);
     const numbers = createNumbers.map((_, index) => index);
@@ -160,6 +160,7 @@ const useSelectPicker = (
     handleSelectedOption,
     pack,
     details,
+    group,
   };
 };
 

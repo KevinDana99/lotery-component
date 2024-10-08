@@ -28,8 +28,8 @@ const useRequestHandle = () => {
 
   const handleAddToCartProduct = async (
     quantity: number,
-    pack: PackType,
-    selectedNumbers: string[]
+    selectedNumbers: string[],
+    pack: string
   ) => {
     const buildUrl = `/?add-to-cart=${data?.id}&quantity=${quantity}&selectedNumbers=${selectedNumbers}`;
     window.location.href = buildUrl + (pack ? `&pack=${pack}` : ``);
