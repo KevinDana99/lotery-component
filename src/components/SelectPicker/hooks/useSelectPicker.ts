@@ -12,8 +12,8 @@ let disableNumbersArray: typeof mock_disable_number_array = [
   "2,3,5,6",
   "3,4,7",
 ];
-*/
 
+*/
 declare var disableNumbersArray: typeof mock_disable_number_array;
 const useSelectPicker = (
   startNumber: number,
@@ -110,9 +110,11 @@ const useSelectPicker = (
       ) {
         const verify1 = verifyIsAvailableNumber(firstNumber);
         const verify2 = verifyIsAvailableNumber(secondNumber);
-        verify1 === verify2
-          ? selected.push(verify1)
-          : selected.push(verify1, verify2);
+        if (selectedNumbers.length + disableNumbers.length <= endNumber) {
+          verify1 === verify2
+            ? selected.push(verify1)
+            : selected.push(verify1, verify2);
+        }
 
         if (flag !== "pack") {
           setSelectedNumbers([...selectedNumbers, ...selected]);

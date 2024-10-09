@@ -10,13 +10,13 @@ interface ProductData {
 }
 /*
 not react
+
 let my_product_data: ProductData = {
   id: 4,
   name: "",
   permalink: "",
   price: "",
 };
-
 
 */
 
