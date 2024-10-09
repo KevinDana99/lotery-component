@@ -10,14 +10,16 @@ interface ProductData {
 }
 /*
 not react
-
 let my_product_data: ProductData = {
   id: 4,
   name: "",
   permalink: "",
   price: "",
 };
+
+
 */
+
 declare let my_product_data: ProductData;
 const useRequestHandle = () => {
   const [data, setData] = useState<ProductData | null>(null);

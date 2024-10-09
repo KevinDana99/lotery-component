@@ -13,6 +13,7 @@ let disableNumbersArray: typeof mock_disable_number_array = [
   "3,4,7",
 ];
 */
+
 declare var disableNumbersArray: typeof mock_disable_number_array;
 const useSelectPicker = (
   startNumber: number,
@@ -72,14 +73,20 @@ const useSelectPicker = (
 
   const verifyIsAvailableNumber = (value: string) => {
     const checkNumber = (value: string) => {
-      const parseValue = numbers && parseInt(value);
-      const findNumber = numbers?.filter((el, index) => index === parseValue);
-      const verify = findNumber && disableNumbers.includes(findNumber[0]);
-      return verify;
+      const parseValue = numbers ? parseInt(value) : null;
+      if (parseValue === null || parseValue >= numbers.length || parseValue < 0)
+        return true;
+
+      const findNumber = numbers[parseValue];
+      const isDisabled = disableNumbers.includes(findNumber);
+      const isSelected = selectedNumbers.includes(findNumber);
+
+      return isDisabled || isSelected;
     };
 
     let currentValue = value;
 
+    // Loop para generar un nuevo número si ya está deshabilitado o seleccionado
     while (checkNumber(currentValue)) {
       currentValue = `${numbers[selectedRandomNumber()]}`;
     }
@@ -94,21 +101,18 @@ const useSelectPicker = (
   const handleSelectedNumbers = (inputNumber: string, flag?: string) => {
     if (numbers) {
       const parseInputNumber = parseInt(inputNumber);
-      const firstNumber =
-        numbers[inputNumber ? parseInputNumber : selectedRandomNumber()];
+      const firstNumber = numbers[parseInputNumber];
       const secondNumber = numbers[selectedRandomNumber()];
-      const verifyNumber =
-        firstNumber === secondNumber
-          ? numbers[selectedRandomNumber()]
-          : numbers[selectedRandomNumber()];
 
       if (
         selectedNumbers.length <=
         (pack ? maxSelectedNumbers * 2 : maxSelectedNumbers * 1)
       ) {
         const verify1 = verifyIsAvailableNumber(firstNumber);
-        const verify2 = verifyIsAvailableNumber(verifyNumber);
-        selected.push(verify1, verify2);
+        const verify2 = verifyIsAvailableNumber(secondNumber);
+        verify1 === verify2
+          ? selected.push(verify1)
+          : selected.push(verify1, verify2);
 
         if (flag !== "pack") {
           setSelectedNumbers([...selectedNumbers, ...selected]);

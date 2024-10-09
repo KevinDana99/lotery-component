@@ -18,7 +18,7 @@ import useRequestHandle from "./hooks/useRequestHandle";
 
 const SelectPicker = () => {
   const startNumber = 0;
-  const endNumber = 999;
+  const endNumber = 20;
   const [showMore, setShowMore] = useState(false);
 
   const { data, handleAddToCartProduct } = useRequestHandle();
