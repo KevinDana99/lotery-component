@@ -59,7 +59,7 @@ export const SelectButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 15px;
+  border-radius: 15px !important;
   &:hover {
     background-color: white;
     color: #fc6804;

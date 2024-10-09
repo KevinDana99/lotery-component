@@ -125,7 +125,7 @@ const SelectPicker = () => {
             Elegir al azar
           </SelectButton>
           <SelectButton
-            disabled={!selectedNumbers}
+            disabled={selectedNumbers.length <= 0}
             onClick={() => {
               handleAddToCartProduct(
                 details?.quantity ?? 0,
