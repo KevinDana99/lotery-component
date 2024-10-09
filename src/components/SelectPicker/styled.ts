@@ -54,8 +54,8 @@ export const SelectButton = styled.button`
   margin-bottom: 20px;
   width: 220px;
   height: 50px;
-  background-color: #fc6804;
-  color: white;
+  background-color: #fc6804 !important;
+  color: white !important;
   display: flex;
   justify-content: center;
   align-items: center;
