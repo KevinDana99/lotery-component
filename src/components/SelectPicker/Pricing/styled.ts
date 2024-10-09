@@ -28,7 +28,7 @@ export const PricingBox = styled.div<{ active: boolean }>`
   ${({ active }) => active && `pointer-events: none`};
 `;
 
-export const Title = styled.h2`
+export const Title = styled.div`
   margin: 0;
   font-size: 1.2em;
 `;
