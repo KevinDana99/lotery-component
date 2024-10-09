@@ -48,7 +48,7 @@ export const Option = styled.div<{ disable: boolean; active: boolean }>`
     cursor: pointer;
   }
 `;
-export const SelectButton = styled.div`
+export const SelectButton = styled.button`
   margin-left: 15px;
   margin-top: 20px;
   margin-bottom: 20px;

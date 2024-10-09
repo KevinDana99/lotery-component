@@ -18,7 +18,7 @@ import useRequestHandle from "./hooks/useRequestHandle";
 
 const SelectPicker = () => {
   const startNumber = 0;
-  const endNumber = 50;
+  const endNumber = 999;
   const [showMore, setShowMore] = useState(false);
 
   const { data, handleAddToCartProduct } = useRequestHandle();
@@ -125,6 +125,7 @@ const SelectPicker = () => {
             Elegir al azar
           </SelectButton>
           <SelectButton
+            disabled={!selectedNumbers}
             onClick={() => {
               handleAddToCartProduct(
                 details?.quantity ?? 0,
