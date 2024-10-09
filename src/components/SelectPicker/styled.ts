@@ -48,14 +48,16 @@ export const Option = styled.div<{ disable: boolean; active: boolean }>`
     cursor: pointer;
   }
 `;
-export const SelectButton = styled.button`
+export const SelectButton = styled.div<{ disabled?: boolean }>`
   margin-left: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
   width: 220px;
   height: 50px;
-  background-color: #fc6804 !important;
-  color: white !important;
+  color: white;
+  background-color: ${({ disabled }) =>
+    disabled ? "#dcdbdc !important" : "#fc6804"};
+  ${({ disabled }) => disabled && "pointer-events: none"};
   display: flex;
   justify-content: center;
   align-items: center;

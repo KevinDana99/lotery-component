@@ -2,11 +2,6 @@ import CryptoJS from "crypto-js";
 import { useEffect, useState } from "react";
 import { PackType } from "./types";
 
-const consumerKey = "ck_6b5d48c8734d6f9eea959ece2e45eea40de434b7";
-const consumerSecret = "cs_fc88b9a570c46e98c32359362b7755c9710cd6f0";
-const getOrdersEndpoint = "http://localhost/wp-json/wc/v3/orders";
-const addedToCartEndpoint = "http://localhost/wp-json/wc/v3/cart/add";
-
 interface ProductData {
   id: number;
   name: string;
@@ -15,15 +10,15 @@ interface ProductData {
 }
 /*
 not react
+declare let my_product_data: ProductData;
 
+*/
 let my_product_data: ProductData = {
   id: 4,
   name: "",
   permalink: "",
   price: "",
 };
-*/
-declare let my_product_data: ProductData;
 const useRequestHandle = () => {
   const [data, setData] = useState<ProductData | null>(null);
   const productData = my_product_data;
