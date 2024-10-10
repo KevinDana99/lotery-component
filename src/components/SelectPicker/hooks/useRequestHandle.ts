@@ -11,9 +11,6 @@ interface ProductData {
 /*
 not react
 
-
-declare let my_product_data: ProductData;
-*/
 let my_product_data: ProductData = {
   id: 4,
   name: "",
@@ -21,6 +18,9 @@ let my_product_data: ProductData = {
   price: "",
 };
 
+*/
+
+declare let my_product_data: ProductData;
 const useRequestHandle = () => {
   const [data, setData] = useState<ProductData | null>(null);
   const productData = my_product_data;
