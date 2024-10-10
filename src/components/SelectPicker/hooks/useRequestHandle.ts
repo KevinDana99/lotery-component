@@ -17,10 +17,9 @@ let my_product_data: ProductData = {
   permalink: "",
   price: "",
 };
-
 */
-
 declare let my_product_data: ProductData;
+
 const useRequestHandle = () => {
   const [data, setData] = useState<ProductData | null>(null);
   const productData = my_product_data;

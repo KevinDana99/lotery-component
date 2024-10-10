@@ -39,8 +39,13 @@ const SelectPicker = () => {
     pack,
     details,
     group,
+    setPack,
   } = useSelectPicker(startNumber, endNumber, data?.price ?? "");
-  console.log({ selectedNumbers, maxSelectedNumbers, disabledNumbers });
+  console.log({
+    selectedNumbers,
+    maxSelectedNumbers: maxSelectedNumbers + 1,
+    disabledNumbers,
+  });
   const filterNumbers = numbers?.filter((el) => parseInt(el) < 100 + 1);
   return (
     <BoxContainer>
@@ -123,7 +128,7 @@ const SelectPicker = () => {
               maxSelectedNumbers + 1
             }
             onClick={() => {
-              handleSelectedNumbers();
+              handleSelectedOption();
             }}
           >
             Elegir al azar

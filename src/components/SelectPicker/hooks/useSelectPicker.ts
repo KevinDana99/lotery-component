@@ -7,13 +7,7 @@ import { Verify } from "crypto";
 //
 /*
 not react
-
-let disableNumbersArray: typeof mock_disable_number_array = [
-  "0,2,4,6",
-  "2,3,5,6",
-  "3,4,7",
-];
-
+let disableNumbersArray: typeof mock_disable_number_array = [];
 */
 declare var disableNumbersArray: typeof mock_disable_number_array;
 
@@ -108,17 +102,21 @@ const useSelectPicker = (
     const verify = verifyIsAvailableNumber(firstNumber);
     const verify2 = verifyIsAvailableNumber(secondNumber);
 
-    if (verify !== verify2) {
-      if (selectedNumbers.length === 0) {
-        setSelectedNumbers([verify, verify2]);
-      } else {
-        setSelectedNumbers([...selectedNumbers, verify, verify2]);
-      }
+    if (pack) {
+      setSelectedNumbers((prev) => [...prev, verify, verify2]);
     } else {
-      if (selectedNumbers.length === 0) {
-        setSelectedNumbers([verify]);
+      if (verify !== verify2) {
+        if (selectedNumbers.length === 0) {
+          setSelectedNumbers([verify, verify2]);
+        } else {
+          setSelectedNumbers([...selectedNumbers, verify, verify2]);
+        }
       } else {
-        setSelectedNumbers([...selectedNumbers, verify]);
+        if (selectedNumbers.length === 0) {
+          setSelectedNumbers([verify]);
+        } else {
+          setSelectedNumbers([...selectedNumbers, verify]);
+        }
       }
     }
   };
@@ -133,15 +131,16 @@ const useSelectPicker = (
   };
 
   const handleSelectedPack = (value: PackType) => {
+    handleResetSelectedNumbers();
     handleSetMaxSelectedNumbers(value.quantity);
     setPack(value);
   };
 
-  const handleSelectedOption = (el: string) => {
+  const handleSelectedOption = (el?: string) => {
     handleResetSelectedNumbers();
     setPack(null);
     handleSetMaxSelectedNumbers(endNumber);
-    handleSelectedNumbers(el);
+    handleSelectedNumbers(el ?? undefined);
   };
 
   useEffect(() => {
@@ -155,13 +154,11 @@ const useSelectPicker = (
   }, [selectedNumbers]);
 
   useEffect(() => {
-    console.log(pack?.quantity, selectedNumbers);
     if (pack) {
       new Array(pack.quantity).fill(1).forEach((_, index) => {
         handleSelectedNumbers(numbers[selectedRandomNumber()]);
       });
     }
-    console.log(packSelectedNumbers);
   }, [pack]);
   useEffect(() => {
     handleCreateNumbers();
