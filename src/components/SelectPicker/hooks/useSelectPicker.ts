@@ -24,7 +24,6 @@ const useSelectPicker = (
   const [details, setDetails] = useState<PackType | null>(null);
   const [group, setGroup] = useState<any>(null);
   const [disableNumbers, setDisableNumbers] = useState<string[]>([]);
-  const [packSelectedNumbers, setPackSelectedNumbers] = useState<string[]>([]);
 
   const handleGetDisableNumbers = () => {
     const parseDisableNumbers = () => {

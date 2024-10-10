@@ -18,7 +18,7 @@ import useRequestHandle from "./hooks/useRequestHandle";
 
 const SelectPicker = () => {
   const startNumber = 0;
-  const endNumber = 20;
+  const endNumber = 999;
   const [showMore, setShowMore] = useState(false);
 
   const { data, handleAddToCartProduct } = useRequestHandle();
@@ -41,11 +41,7 @@ const SelectPicker = () => {
     group,
     setPack,
   } = useSelectPicker(startNumber, endNumber, data?.price ?? "");
-  console.log({
-    selectedNumbers,
-    maxSelectedNumbers: maxSelectedNumbers + 1,
-    disabledNumbers,
-  });
+
   const filterNumbers = numbers?.filter((el) => parseInt(el) < 100 + 1);
   return (
     <BoxContainer>
