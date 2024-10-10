@@ -40,7 +40,7 @@ const SelectPicker = () => {
     details,
     group,
   } = useSelectPicker(startNumber, endNumber, data?.price ?? "");
-
+  console.log({ selectedNumbers, maxSelectedNumbers, disabledNumbers });
   const filterNumbers = numbers?.filter((el) => parseInt(el) < 100 + 1);
   return (
     <BoxContainer>
