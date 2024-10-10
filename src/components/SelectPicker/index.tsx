@@ -118,7 +118,10 @@ const SelectPicker = () => {
             </SelectButton>
           )}
           <SelectButton
-            disabled={selectedNumbers.length === maxSelectedNumbers + 1}
+            disabled={
+              selectedNumbers.length + disabledNumbers.length ===
+              maxSelectedNumbers + 1
+            }
             onClick={() => {
               handleSelectedNumbers();
             }}
