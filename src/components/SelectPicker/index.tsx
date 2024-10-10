@@ -33,9 +33,9 @@ const SelectPicker = () => {
     activePrice,
     setActivePrice,
     handleSelectedPack,
-    selectedRandomNumber,
     handleRemoveSelectedNumber,
     handleSelectedOption,
+    maxSelectedNumbers,
     pack,
     details,
     group,
@@ -118,8 +118,9 @@ const SelectPicker = () => {
             </SelectButton>
           )}
           <SelectButton
+            disabled={selectedNumbers.length === maxSelectedNumbers + 1}
             onClick={() => {
-              handleSelectedNumbers(`${selectedRandomNumber()}`);
+              handleSelectedNumbers();
             }}
           >
             Elegir al azar

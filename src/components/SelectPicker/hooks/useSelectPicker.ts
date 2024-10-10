@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import { PackType } from "./types";
 import { parse } from "path";
 import { mock_disable_number_array } from "../mocks/disableNumbers";
+import { Verify } from "crypto";
 
 //
 /*
 not react
 
+
+declare var disableNumbersArray: typeof mock_disable_number_array;
+*/
 let disableNumbersArray: typeof mock_disable_number_array = [
   "0,2,4,6",
   "2,3,5,6",
   "3,4,7",
 ];
-
-*/
-declare var disableNumbersArray: typeof mock_disable_number_array;
 const useSelectPicker = (
   startNumber: number,
   endNumber: number,
@@ -24,11 +25,11 @@ const useSelectPicker = (
   const [selectedNumbers, setSelectedNumbers] = useState<string[]>([]);
   const [numbers, setNumbers] = useState<string[]>([]);
   const [maxSelectedNumbers, setMaxSelectedNumbers] = useState(endNumber);
-  let selected: string[] = [];
   const [pack, setPack] = useState<PackType | null>(null);
   const [details, setDetails] = useState<PackType | null>(null);
   const [group, setGroup] = useState<any>(null);
   const [disableNumbers, setDisableNumbers] = useState<string[]>([]);
+  const [packSelectedNumbers, setPackSelectedNumbers] = useState<string[]>([]);
 
   const handleGetDisableNumbers = () => {
     const parseDisableNumbers = () => {
@@ -86,7 +87,6 @@ const useSelectPicker = (
 
     let currentValue = value;
 
-    // Loop para generar un nuevo número si ya está deshabilitado o seleccionado
     while (checkNumber(currentValue)) {
       currentValue = `${numbers[selectedRandomNumber()]}`;
     }
@@ -98,34 +98,27 @@ const useSelectPicker = (
     remove && setSelectedNumbers(remove);
   };
 
-  const handleSelectedNumbers = (inputNumber: string, flag?: string) => {
-    if (numbers) {
-      const parseInputNumber = parseInt(inputNumber);
-      const firstNumber = numbers[parseInputNumber];
-      const secondNumber = numbers[selectedRandomNumber()];
+  const handleSelectedNumbers = (inputNumber?: string) => {
+    const parseInputNumber = parseInt(
+      inputNumber ?? numbers[selectedRandomNumber()]
+    );
+    const firstNumber = numbers[parseInputNumber];
+    const secondNumber = numbers[selectedRandomNumber()];
+    const verify = verifyIsAvailableNumber(firstNumber);
+    const verify2 = verifyIsAvailableNumber(secondNumber);
 
-      if (
-        selectedNumbers.length <=
-        (pack ? maxSelectedNumbers * 2 : maxSelectedNumbers * 1)
-      ) {
-        const verify1 = verifyIsAvailableNumber(firstNumber);
-        const verify2 = verifyIsAvailableNumber(secondNumber);
-        if (selectedNumbers.length + disableNumbers.length <= endNumber) {
-          verify1 === verify2
-            ? selected.push(verify1)
-            : selected.push(verify1, verify2);
-        }
-
-        if (flag !== "pack") {
-          setSelectedNumbers([...selectedNumbers, ...selected]);
-        } else {
-          setSelectedNumbers([...selected]);
-        }
+    if (verify !== verify2) {
+      if (selectedNumbers.length === 0) {
+        setSelectedNumbers([verify, verify2]);
       } else {
-        setSelectedNumbers([...selected]);
+        setSelectedNumbers([...selectedNumbers, verify, verify2]);
       }
     } else {
-      console.log("numbers not exist");
+      if (selectedNumbers.length === 0) {
+        setSelectedNumbers([verify]);
+      } else {
+        setSelectedNumbers([...selectedNumbers, verify]);
+      }
     }
   };
 
@@ -134,27 +127,22 @@ const useSelectPicker = (
   };
 
   const handleResetSelectedNumbers = () => {
+    setActivePrice(0);
     setSelectedNumbers([]);
-    selected = [];
   };
 
   const handleSelectedPack = (value: PackType) => {
-    setPack(value);
     handleSetMaxSelectedNumbers(value.quantity);
-    const arr = new Array(value.quantity).fill(null);
-    setActivePrice(value.quantity);
-    arr.forEach(() =>
-      handleSelectedNumbers(`${selectedRandomNumber()}`, "pack")
-    );
+    setPack(value);
   };
 
   const handleSelectedOption = (el: string) => {
-    setPack(null);
     handleResetSelectedNumbers();
+    setPack(null);
     handleSetMaxSelectedNumbers(endNumber);
     handleSelectedNumbers(el);
   };
-
+  /*
   useEffect(() => {
     const dividedSelectNumbers = Math.floor(selectedNumbers.length / 2);
     !pack &&
@@ -164,22 +152,28 @@ const useSelectPicker = (
         subPrice: "",
       });
   }, [selectedNumbers]);
+*/
 
+  useEffect(() => {
+    console.log(pack?.quantity, selectedNumbers);
+    if (pack) {
+      new Array(pack.quantity).fill(1).forEach((_, index) => {
+        handleSelectedNumbers(numbers[selectedRandomNumber()]);
+      });
+    }
+    console.log(packSelectedNumbers);
+  }, [pack]);
   useEffect(() => {
     handleCreateNumbers();
     handleGetDisableNumbers();
-    console.log({ selectedNumbers });
   }, []);
-
+  /*
   useEffect(() => {
     pack ? setDetails({ ...pack, quantity: 1 }) : setDetails(group);
   }, [pack, group]);
-
-  useEffect(() => {
-    console.log(details);
-  }, [details]);
-
+*/
   return {
+    maxSelectedNumbers,
     selectedNumbers,
     handleSelectedNumbers,
     numbers,
