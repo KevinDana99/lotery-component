@@ -15,10 +15,9 @@ import {
   mock_disable_number_array,
 } from "./mocks/disableNumbers";
 import useRequestHandle from "./hooks/useRequestHandle";
-
+const startNumber = 0;
+const endNumber = 100;
 const SelectPicker = () => {
-  const startNumber = 0;
-  const endNumber = 999;
   const [showMore, setShowMore] = useState(false);
 
   const { data, handleAddToCartProduct } = useRequestHandle();

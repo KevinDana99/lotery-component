@@ -7,9 +7,9 @@ import { Verify } from "crypto";
 //
 /*
 not react
-let disableNumbersArray: typeof mock_disable_number_array = [];
-*/
 declare var disableNumbersArray: typeof mock_disable_number_array;
+*/
+let disableNumbersArray: typeof mock_disable_number_array = [];
 
 const useSelectPicker = (
   startNumber: number,
