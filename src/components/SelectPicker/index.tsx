@@ -16,7 +16,7 @@ import {
 } from "./mocks/disableNumbers";
 import useRequestHandle from "./hooks/useRequestHandle";
 const startNumber = 0;
-const endNumber = 100;
+const endNumber = 1;
 const SelectPicker = () => {
   const [showMore, setShowMore] = useState(false);
 
